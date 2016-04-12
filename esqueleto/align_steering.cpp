@@ -11,6 +11,8 @@ AlignSteering::~AlignSteering() {
 }
 
 void AlignSteering::Update(Accelerations &acc, Character * ch, USVec2D target) {
+	USVec2D desiredVector = (target - ch->GetLoc()).NormVector();
+	//desiredVector.NormSafe();
 	float desiredRot = ch->GetRot();
 	/*USVec2D chLoc = ch->GetLoc();
 	USVec2D desiredVelocity = target - chLoc;

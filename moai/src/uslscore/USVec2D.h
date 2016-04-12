@@ -249,6 +249,19 @@ public:
 	}
 	
 	//----------------------------------------------------------------//
+	// Normalizes and returns USVec2D
+	USMetaVec2D<TYPE> NormVector() {
+		TYPE length;
+
+		length = this->Length();
+
+		this->mX = this->mX / length;
+		this->mY = this->mY / length;
+
+		return *this;
+	}
+
+	//----------------------------------------------------------------//
 	// Normalize vector; test for 0-length vector.
 	TYPE NormSafe () {
 
