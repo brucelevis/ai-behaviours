@@ -3,7 +3,6 @@
 
 #include "character.h"
 
-void Configure(MOAIGlobals* globals)
-{
+void Configure(MOAIGlobals* globals) {
 	REGISTER_LUA_CLASS(Character)
 }

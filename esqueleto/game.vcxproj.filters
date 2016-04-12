@@ -17,6 +17,11 @@
     </ClCompile>
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="params.cpp" />
+    <ClCompile Include="steering.cpp" />
+    <ClCompile Include="seek_steering.cpp" />
+    <ClCompile Include="flee_Steering.cpp" />
+    <ClCompile Include="arrive_steering.cpp" />
+    <ClCompile Include="align_steering.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="character.h" />
@@ -32,6 +37,11 @@
     </ClInclude>
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="params.h" />
+    <ClInclude Include="steering.h" />
+    <ClInclude Include="seek_steering.h" />
+    <ClInclude Include="flee_Steering.h" />
+    <ClInclude Include="arrive_steering.h" />
+    <ClInclude Include="align_steering.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="host">
