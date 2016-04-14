@@ -17,3 +17,7 @@ void FleeSteering::Update(Accelerations & acc, Character * ch, USVec2D target) {
 	wishAcc.Norm();
 	acc.linearAcc = wishAcc * maxAcc;
 }
+
+void FleeSteering::DrawDebug() {
+
+}

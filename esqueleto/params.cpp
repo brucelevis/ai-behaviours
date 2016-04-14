@@ -50,8 +50,8 @@ bool ReadParams(const char* filename, Params& params) {
 
 	paramElem = hParams.FirstChildElement("targetPosition").Element();
 	if (paramElem) {
-		paramElem->Attribute("x", &params.targetPosition.mX);
-		paramElem->Attribute("y", &params.targetPosition.mY);
+		paramElem->Attribute("x", &params.target_position.mX);
+		paramElem->Attribute("y", &params.target_position.mY);
 	}
 
 	paramElem = hParams.FirstChildElement("max_angular_velocity").Element();
@@ -61,7 +61,22 @@ bool ReadParams(const char* filename, Params& params) {
 
 	paramElem = hParams.FirstChildElement("max_angular_acceleration").Element();
 	if (paramElem) {
-		paramElem->Attribute("value", &params.max_angular_velocity);
+		paramElem->Attribute("value", &params.max_angular_acceleration);
+	}
+
+	paramElem = hParams.FirstChildElement("angular_dest_radius").Element();
+	if (paramElem) {
+		paramElem->Attribute("value", &params.angular_dest_radius);
+	}
+
+	paramElem = hParams.FirstChildElement("angular_arrive_radius").Element();
+	if (paramElem) {
+		paramElem->Attribute("value", &params.angular_arrive_radius);
+	}
+
+	paramElem = hParams.FirstChildElement("targetRotation").Element();
+	if (paramElem) {
+		paramElem->Attribute("value", &params.target_rotation);
 	}
 
 	return true;

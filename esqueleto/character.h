@@ -9,6 +9,7 @@
 class Steering;
 
 struct Accelerations {
+	Accelerations(): linearAcc(0, 0), angularAcc(0) {}
 	USVec2D linearAcc;
 	float angularAcc;
 };
