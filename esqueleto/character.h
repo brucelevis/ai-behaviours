@@ -35,7 +35,7 @@ public:
 
 	float GetArriveRadius() const { return mArriveRadius; }
 
-	Params GetParams() { return mParams; }
+	Params &GetParams() { return mParams; }
 private:
 	USVec2D mLinearVelocity;
 	float mAngularVelocity;

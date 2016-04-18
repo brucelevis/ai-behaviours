@@ -23,10 +23,10 @@ entity = Character.new()
 entity:setProp(prop, layer)
 -- Start the character (allow calls to OnUpdate)
 entity:start()
-entity:setLoc(-200,0)
-entity:setRot(0)
---entity:setLinearVel(10, 20)
---entity:setAngularVel(30)
+entity:setLoc(-200, 100)
+entity:setRot(180)
+entity:setLinearVel(10, 20)
+entity:setAngularVel(30)
 
 -- Enable Debug Draw
 debug = MOAIDrawDebug.get();
@@ -40,8 +40,8 @@ mouseY = 0
 function onClick(down)
   entity:setLoc(mouseX, mouseY)
   --entity:setRot(-135)
-  entity:setLinearVel(0, 0)
-  entity:setAngularVel(0, 0)
+  --entity:setLinearVel(0, 0)
+  --entity:setAngularVel(0)
 end
 
 function pointerCallback(x, y)

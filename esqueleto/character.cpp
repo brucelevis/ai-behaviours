@@ -1,11 +1,13 @@
 #include <stdafx.h>
+#include <tinyxml.h>
 #include "steering.h"
 #include "arrive_steering.h"
 #include "align_steering.h"
+#include "aligntomovement_steering.h"
 #include "flee_steering.h"
 #include "seek_steering.h"
 #include "character.h"
-#include <tinyxml.h>
+#include "pathfollowing_steering.h"
 
 #include <params.h>
 
@@ -25,7 +27,9 @@ void Character::OnStart() {
 	//mSteerings.push_back(new SeekSteering());
 	//mSteerings.push_back(new FleeSteering());
 	//mSteerings.push_back(new ArriveSteering());
-	mSteerings.push_back(new AlignSteering());
+	//mSteerings.push_back(new AlignSteering());
+	//mSteerings.push_back(new AlignToMovementSteering());
+	mSteerings.push_back(new PathFollowingSteering());
 	mTarget = mParams.target_position;
 	mArriveRadius = mParams.arrive_radius;
 }
@@ -54,7 +58,7 @@ void Character::OnUpdate(float step) {
 	if (mLinearVelocity.mY < -mParams.max_velocity)
 		mLinearVelocity.mY = -mParams.max_velocity;
 
-	mAngularVelocity += acc.angularAcc;
+	mAngularVelocity += acc.angularAcc * step;
 
 	if (mAngularVelocity > mParams.max_angular_velocity) {
 		mAngularVelocity = mParams.max_angular_velocity;

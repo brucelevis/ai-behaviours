@@ -1,6 +1,9 @@
 #include <stdafx.h>
 #include <tinyxml.h>
+#include <vector>
 #include "params.h"
+
+#define PATH_FILENAME "path.xml"
 
 bool ReadParams(const char* filename, Params& params) {
 	TiXmlDocument doc(filename);
@@ -77,6 +80,39 @@ bool ReadParams(const char* filename, Params& params) {
 	paramElem = hParams.FirstChildElement("targetRotation").Element();
 	if (paramElem) {
 		paramElem->Attribute("value", &params.target_rotation);
+	}
+
+	//parse file and fill points[]
+	TiXmlDocument docPath(PATH_FILENAME);
+	if (!docPath.LoadFile()) {
+		fprintf(stderr, "Couldn't read params from %s", PATH_FILENAME);
+		return false;
+	}
+
+	TiXmlHandle pDoc(&docPath);
+
+	TiXmlElement* pathElem;
+	pathElem = pDoc.FirstChildElement().Element();
+	if (!pathElem) {
+		fprintf(stderr, "Invalid format for %s", PATH_FILENAME);
+		return false;
+	}
+
+	TiXmlHandle pRoot(pathElem);
+	TiXmlHandle pPoints = pRoot.FirstChildElement("points");
+	Point p;
+
+	uint16_t numPoints = 0;
+	bool end = false;
+	while (!end) {
+		TiXmlElement* point = pPoints.Child("point", numPoints++).Element();
+		if (point) {
+			point->Attribute("x", &p.x);
+			point->Attribute("y", &p.y);
+			params.points.push_back(p);
+		} else {
+			end = true;
+		}
 	}
 
 	return true;
