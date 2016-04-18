@@ -4,11 +4,14 @@
 		<max_acceleration value="100"> </max_acceleration>
 		<dest_radius value="40"> </dest_radius>
         <arrive_radius value="140"> </arrive_radius>
-		<targetPosition x="40" y="30"> </targetPosition>
-		<max_angular_velocity value="20"> </max_angular_velocity>
-		<max_angular_acceleration value="60"> </max_angular_acceleration>
-		<angular_dest_radius value="360"> </angular_dest_radius>
-		<angular_arrive_radius value="360"> </angular_arrive_radius>
-		<targetRotation value="180"> </targetRotation>
+		<targetPosition x="0" y="0"> </targetPosition>
+        
+		<max_angular_velocity value="60"> </max_angular_velocity>
+		<max_angular_acceleration value="100"> </max_angular_acceleration>
+		<angular_dest_radius value="2"> </angular_dest_radius>
+		<angular_arrive_radius value="80"> </angular_arrive_radius>
+		<targetRotation value="-60"> </targetRotation>
+        
+         <look_ahead value="30"></look_ahead>
 	</params>
 </root>

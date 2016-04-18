@@ -1,0 +1,21 @@
+#ifndef _PATH_FOLLOWING_H_
+#define _PATH_FOLLOWING_H_
+
+#include "steering.h"
+class SeekSteering;
+
+class PathFollowingSteering: public Steering {
+public:
+	PathFollowingSteering();
+	virtual ~PathFollowingSteering();
+
+	virtual void Update(Accelerations &acc, Character * ch, USVec2D target);
+	
+	virtual void DrawDebug();
+protected:
+	USVec2D mCurrentTarget;
+	SeekSteering * mSeekDelegate;
+	USVec2D mTarget;
+};
+
+#endif //!_PATH_FOLLOWING_H_

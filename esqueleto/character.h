@@ -9,6 +9,7 @@
 class Steering;
 
 struct Accelerations {
+	Accelerations(): linearAcc(0, 0), angularAcc(0) {}
 	USVec2D linearAcc;
 	float angularAcc;
 };
@@ -34,7 +35,7 @@ public:
 
 	float GetArriveRadius() const { return mArriveRadius; }
 
-	Params GetParams() { return mParams; }
+	Params &GetParams() { return mParams; }
 private:
 	USVec2D mLinearVelocity;
 	float mAngularVelocity;

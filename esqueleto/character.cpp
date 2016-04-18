@@ -1,11 +1,13 @@
 #include <stdafx.h>
+#include <tinyxml.h>
 #include "steering.h"
 #include "arrive_steering.h"
 #include "align_steering.h"
+#include "aligntomovement_steering.h"
 #include "flee_steering.h"
 #include "seek_steering.h"
 #include "character.h"
-#include <tinyxml.h>
+#include "pathfollowing_steering.h"
 
 #include <params.h>
 
@@ -25,8 +27,10 @@ void Character::OnStart() {
 	//mSteerings.push_back(new SeekSteering());
 	//mSteerings.push_back(new FleeSteering());
 	//mSteerings.push_back(new ArriveSteering());
-	mSteerings.push_back(new AlignSteering());
-	mTarget = mParams.targetPosition;
+	//mSteerings.push_back(new AlignSteering());
+	//mSteerings.push_back(new AlignToMovementSteering());
+	mSteerings.push_back(new PathFollowingSteering());
+	mTarget = mParams.target_position;
 	mArriveRadius = mParams.arrive_radius;
 }
 
@@ -57,36 +61,31 @@ void Character::OnUpdate(float step) {
 	mAngularVelocity += acc.angularAcc * step;
 
 	if (mAngularVelocity > mParams.max_angular_velocity) {
-
+		mAngularVelocity = mParams.max_angular_velocity;
+	} else if (mAngularVelocity < -mParams.max_angular_velocity) {
+		mAngularVelocity = -mParams.max_angular_velocity;
 	}
 
 	SetLoc(GetLoc() + static_cast<USVec2D>(mLinearVelocity) * step);
-	SetRot(GetRot() + GetAngularVelocity());
+	SetRot(GetRot() + mAngularVelocity * step);
 }
 
 void Character::DrawDebug() {
 	MOAIGfxDevice& gfxDevice = MOAIGfxDevice::Get();
 	gfxDevice.SetPenColor(0.0f, 0.0f, 1.0f, 0.5f);
 
+	for (std::vector<Steering *>::iterator itr = mSteerings.begin(); itr != mSteerings.end();
+	++itr) {
+		(*itr)->DrawDebug();
+	}
+
 	//LinearVel
-	gfxDevice.SetPenColor(1.0f, 0.0f, 0.0f, 0.5f);
+	/*gfxDevice.SetPenColor(1.0f, 0.0f, 0.0f, 0.5f);
 	MOAIDraw::DrawLine(static_cast<USVec2D>(GetLoc()),
-		static_cast<USVec2D>(GetLoc()) + mLinearVelocity);
+		static_cast<USVec2D>(GetLoc()) + mLinearVelocity);*/
 
-	//LinearAcc
-	gfxDevice.SetPenColor(0.0f, 1.0f, 0.0f, 0.5f);
-	MOAIDraw::DrawLine(static_cast<USVec2D>(GetLoc()),
-		static_cast<USVec2D>(GetLoc()) + mLastLinearAcc);
-
-	//LinearAcc
 	gfxDevice.SetPenColor(0.0f, 0.0f, 1.0f, 0.5f);
 	MOAIDraw::DrawLine(static_cast<USVec2D>(GetLoc()), mTarget);
-
-	gfxDevice.SetPenColor(1.0f, 1.0f, 1.0f, 0.5f);
-
-	MOAIDraw::DrawPoint(mTarget);
-	MOAIDraw::DrawEllipseOutline(mTarget.mX, mTarget.mY,
-		mParams.arrive_radius, mParams.arrive_radius, 64);
 }
 
 // Lua configuration
