@@ -13,6 +13,7 @@ public:
 	
 	virtual void DrawDebug();
 protected:
+	uint16_t mCurrentSegment;
 	USVec2D mCurrentTarget;
 	SeekSteering * mSeekDelegate;
 	USVec2D mTarget;

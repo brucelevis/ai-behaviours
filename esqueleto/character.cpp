@@ -28,7 +28,7 @@ void Character::OnStart() {
 	//mSteerings.push_back(new FleeSteering());
 	//mSteerings.push_back(new ArriveSteering());
 	//mSteerings.push_back(new AlignSteering());
-	//mSteerings.push_back(new AlignToMovementSteering());
+	mSteerings.push_back(new AlignToMovementSteering());
 	mSteerings.push_back(new PathFollowingSteering());
 	mTarget = mParams.target_position;
 	mArriveRadius = mParams.arrive_radius;

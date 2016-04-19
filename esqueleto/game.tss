@@ -8,19 +8,10 @@
       <string>D:\studies\master\subject\AI\practices\ai-behaviours\esqueleto\character.cpp</string>
     </ArrayOfString>
     <ArrayOfString>
-      <string>D:\studies\master\subject\AI\practices\ai-behaviours\esqueleto\align_steering.cpp</string>
-    </ArrayOfString>
-    <ArrayOfString>
-      <string>D:\studies\master\subject\AI\practices\ai-behaviours\esqueleto\arrive_steering.cpp</string>
+      <string>D:\studies\master\subject\AI\practices\ai-behaviours\esqueleto\pathfollowing_steering.cpp</string>
     </ArrayOfString>
     <ArrayOfString>
       <string>D:\studies\master\subject\AI\practices\ai-behaviours\esqueleto\params.cpp</string>
-    </ArrayOfString>
-    <ArrayOfString>
-      <string>D:\studies\master\subject\AI\practices\ai-behaviours\esqueleto\seek_steering.cpp</string>
-    </ArrayOfString>
-    <ArrayOfString>
-      <string>D:\studies\master\subject\Programacion 2D\U-gine\src\math.cpp</string>
     </ArrayOfString>
   </ArrayOfArrayOfString>
   <ArrayOfArrayOfString>
@@ -28,19 +19,10 @@
       <string>D:\studies\master\subject\AI\practices\ai-behaviours\esqueleto\character.h</string>
     </ArrayOfString>
     <ArrayOfString>
-      <string>D:\studies\master\subject\AI\practices\ai-behaviours\esqueleto\align_steering.h</string>
-    </ArrayOfString>
-    <ArrayOfString>
-      <string>D:\studies\master\subject\AI\practices\ai-behaviours\esqueleto\arrive_steering.h</string>
+      <string>D:\studies\master\subject\AI\practices\ai-behaviours\esqueleto\pathfollowing_steering.h</string>
     </ArrayOfString>
     <ArrayOfString>
       <string>D:\studies\master\subject\AI\practices\ai-behaviours\esqueleto\params.h</string>
-    </ArrayOfString>
-    <ArrayOfString>
-      <string>D:\studies\master\subject\AI\practices\ai-behaviours\esqueleto\steering.h</string>
-    </ArrayOfString>
-    <ArrayOfString>
-      <string>D:\studies\master\subject\AI\practices\ai-behaviours\esqueleto\seek_steering.h</string>
     </ArrayOfString>
   </ArrayOfArrayOfString>
 </ArrayOfArrayOfArrayOfString>
