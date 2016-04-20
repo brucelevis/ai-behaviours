@@ -13,6 +13,9 @@
     <ArrayOfString>
       <string>D:\studies\master\subject\AI\practices\ai-behaviours\esqueleto\params.cpp</string>
     </ArrayOfString>
+    <ArrayOfString>
+      <string>D:\studies\master\subject\AI\practices\ai-behaviours\esqueleto\obstacleavoidance_steering.cpp</string>
+    </ArrayOfString>
   </ArrayOfArrayOfString>
   <ArrayOfArrayOfString>
     <ArrayOfString>
@@ -23,6 +26,9 @@
     </ArrayOfString>
     <ArrayOfString>
       <string>D:\studies\master\subject\AI\practices\ai-behaviours\esqueleto\params.h</string>
+    </ArrayOfString>
+    <ArrayOfString>
+      <string>D:\studies\master\subject\AI\practices\ai-behaviours\esqueleto\obstacleavoidance_steering.h</string>
     </ArrayOfString>
   </ArrayOfArrayOfString>
 </ArrayOfArrayOfArrayOfString>

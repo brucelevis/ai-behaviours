@@ -8,6 +8,7 @@
 #include "seek_steering.h"
 #include "character.h"
 #include "pathfollowing_steering.h"
+#include "obstacleavoidance_steering.h"
 
 #include <params.h>
 
@@ -29,7 +30,8 @@ void Character::OnStart() {
 	//mSteerings.push_back(new ArriveSteering());
 	//mSteerings.push_back(new AlignSteering());
 	mSteerings.push_back(new AlignToMovementSteering());
-	mSteerings.push_back(new PathFollowingSteering());
+	//mSteerings.push_back(new PathFollowingSteering());
+	mSteerings.push_back(new ObstacleAvoidanceSteering());
 	mTarget = mParams.target_position;
 	mArriveRadius = mParams.arrive_radius;
 }
@@ -84,8 +86,8 @@ void Character::DrawDebug() {
 	MOAIDraw::DrawLine(static_cast<USVec2D>(GetLoc()),
 		static_cast<USVec2D>(GetLoc()) + mLinearVelocity);*/
 
-	gfxDevice.SetPenColor(0.0f, 0.0f, 1.0f, 0.5f);
-	MOAIDraw::DrawLine(static_cast<USVec2D>(GetLoc()), mTarget);
+	/*gfxDevice.SetPenColor(0.0f, 0.0f, 1.0f, 0.5f);
+	MOAIDraw::DrawLine(static_cast<USVec2D>(GetLoc()), mTarget);*/
 }
 
 // Lua configuration

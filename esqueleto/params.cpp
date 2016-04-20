@@ -4,6 +4,7 @@
 #include "params.h"
 
 #define PATH_FILENAME "path.xml"
+#define OBSTACLES_FILENAME "obstacles.xml"
 
 bool ReadParams(const char* filename, Params& params) {
 	TiXmlDocument doc(filename);
@@ -87,7 +88,7 @@ bool ReadParams(const char* filename, Params& params) {
 		paramElem->Attribute("value", &params.look_ahead);
 	}
 
-	//parse file and fill points[]
+	/* POINTS */
 	TiXmlDocument docPath(PATH_FILENAME);
 	if (!docPath.LoadFile()) {
 		fprintf(stderr, "Couldn't read params from %s", PATH_FILENAME);
@@ -119,7 +120,41 @@ bool ReadParams(const char* filename, Params& params) {
 			end = true;
 		}
 	}
-	params.numSegments = params.points.size() - 1;
+	params.numSegments = static_cast<uint16_t>(params.points.size() - 1);
+
+	/* OBSTACLES */
+	TiXmlDocument docObs(OBSTACLES_FILENAME);
+	if (!docObs.LoadFile()) {
+		fprintf(stderr, "Couldn't read params from %s", OBSTACLES_FILENAME);
+		return false;
+	}
+
+	TiXmlHandle oDoc(&docObs);
+
+	TiXmlElement* obsElem;
+	obsElem = oDoc.FirstChildElement().Element();
+	if (!obsElem) {
+		fprintf(stderr, "Invalid format for %s", OBSTACLES_FILENAME);
+		return false;
+	}
+
+	TiXmlHandle oRoot(obsElem);
+	TiXmlHandle pObstacles = oRoot.FirstChildElement("obstacles");
+
+	Obstacle ob;
+	uint16_t numObs = 0;
+	end = false;
+	while (!end) {
+		TiXmlElement* obs = pObstacles.Child("obstacle", numObs++).Element();
+		if (obs) {
+			obs->Attribute("x", &ob.x);
+			obs->Attribute("y", &ob.y);
+			obs->Attribute("r", &ob.r);
+			params.obstacles.push_back(ob);
+		} else {
+			end = true;
+		}
+	}
 
 	return true;
 }

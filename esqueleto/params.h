@@ -8,6 +8,12 @@ struct Point {
 	float y;
 };
 
+struct Obstacle {
+	float x;
+	float y;
+	float r;
+};
+
 struct Params {
 	USVec2D target_position;
 	float max_velocity;
@@ -21,6 +27,7 @@ struct Params {
 	float target_rotation;
 	float look_ahead;
 	std::vector<Point> points;
+	std::vector<Obstacle> obstacles;
 	uint16_t numSegments;
 };
 
