@@ -25,7 +25,7 @@ Character::~Character() {
 void Character::OnStart() {
 	ReadParams("params.xml", mParams);
 
-	//mSteerings.push_back(new SeekSteering());
+	mSteerings.push_back(new SeekSteering());
 	//mSteerings.push_back(new FleeSteering());
 	//mSteerings.push_back(new ArriveSteering());
 	//mSteerings.push_back(new AlignSteering());
@@ -102,6 +102,7 @@ void Character::RegisterLuaFuncs(MOAILuaState& state) {
 	luaL_Reg regTable[] = {
 		{"setLinearVel", _setLinearVel},
 		{"setAngularVel", _setAngularVel},
+		{"setTarget", _setTarget},
 		{NULL, NULL}
 	};
 
@@ -122,6 +123,14 @@ int Character::_setAngularVel(lua_State* L) {
 
 		float angle = state.GetValue<float>(2, 0.0f);
 	self->SetAngularVelocity(angle);
+
+	return 0;
+}
+
+int Character::_setTarget(lua_State* L) {
+	MOAI_LUA_SETUP(Character, "U")
+
+	self->mTarget = USVec2D(state.GetValue<float>(2, 0.0f), state.GetValue<float>(3, 0.0f));
 
 	return 0;
 }

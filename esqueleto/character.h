@@ -53,6 +53,7 @@ public:
 private:
 	static int _setLinearVel(lua_State* L);
 	static int _setAngularVel(lua_State* L);
+	static int _setTarget(lua_State* L);
 };
 
 #endif
