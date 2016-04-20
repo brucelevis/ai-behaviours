@@ -8,11 +8,12 @@ public:
 	FleeSteering();
 	virtual ~FleeSteering();
 
+	virtual void Init(Character * ch);
+
 	void DrawDebug();
 
-	virtual void Update(Accelerations &acc, Character * ch, USVec2D target);
+	virtual void Update(Accelerations &acc, USVec2D target);
 private:
-	
 };
 
 #endif //!_FLEE_STEERING_H_

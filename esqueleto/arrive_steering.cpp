@@ -10,8 +10,12 @@ ArriveSteering::ArriveSteering() {
 ArriveSteering::~ArriveSteering() {
 }
 
-void ArriveSteering::Update(Accelerations &acc, Character * ch, USVec2D target) {
-	mCh = ch;
+void ArriveSteering::Init(Character * ch) {
+	Steering::Init(ch);
+}
+
+void ArriveSteering::Update(Accelerations &acc, USVec2D target) {
+	Character * ch = GetCh();
 	USVec2D chLoc = ch->GetLoc();
 	USVec2D desiredVelocity = target - chLoc;
 	float arriveFactor = desiredVelocity.Length();
@@ -31,18 +35,19 @@ void ArriveSteering::Update(Accelerations &acc, Character * ch, USVec2D target) 
 }
 
 void ArriveSteering::DrawDebug() {
+	Character * ch = GetCh();
 	MOAIGfxDevice& gfxDevice = MOAIGfxDevice::Get();
 	gfxDevice.SetPenColor(0.0f, 0.0f, 1.0f, 0.5f);
 
 	//LinearAcc
 	gfxDevice.SetPenColor(0.0f, 1.0f, 0.0f, 0.5f);
-	MOAIDraw::DrawLine(static_cast<USVec2D>(mCh->GetLoc()),
-		static_cast<USVec2D>(mCh->GetLoc()) + mLastLinearAcc);
+	MOAIDraw::DrawLine(static_cast<USVec2D>(ch->GetLoc()),
+		static_cast<USVec2D>(ch->GetLoc()) + mLastLinearAcc);
 
 	gfxDevice.SetPenColor(1.0f, 1.0f, 1.0f, 0.5f);
 
-	MOAIDraw::DrawPoint(mCh->GetParams().target_position);
-	MOAIDraw::DrawEllipseOutline(mCh->GetParams().target_position.mX,
-		mCh->GetParams().target_position.mY, mCh->GetParams().arrive_radius,
-		mCh->GetParams().arrive_radius, 64);
+	MOAIDraw::DrawPoint(ch->GetParams().target_position);
+	MOAIDraw::DrawEllipseOutline(ch->GetParams().target_position.mX,
+		ch->GetParams().target_position.mY, ch->GetParams().arrive_radius,
+		ch->GetParams().arrive_radius, 64);
 }

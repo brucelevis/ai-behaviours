@@ -12,8 +12,9 @@
 		<angular_arrive_radius value="80"> </angular_arrive_radius>
 		<targetRotation value="-60"> </targetRotation>
         
-         <look_ahead value="40"></look_ahead>
+        <look_ahead value="40"></look_ahead>
          
-         <char_radius value="4"></char_radius>
+        <char_radius value="40"></char_radius>
+		<vision_length value="120"></vision_length>
 	</params>
 </root>

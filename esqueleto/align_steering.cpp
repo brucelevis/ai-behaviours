@@ -4,15 +4,17 @@
 
 #define RAD2DEG 57.2958
 
-AlignSteering::AlignSteering() {
+AlignSteering::AlignSteering() {}
+
+AlignSteering::~AlignSteering() {}
+
+void AlignSteering::Init(Character * ch) {
+	Steering::Init(ch);
 }
 
-
-AlignSteering::~AlignSteering() {
-}
 //45deg of img offset
-void AlignSteering::Update(Accelerations &acc, Character * ch, USVec2D target) {
-	mCh = ch;
+void AlignSteering::Update(Accelerations &acc, USVec2D target) {
+	Character * ch = GetCh();
 	float currentRot = ch->GetRot();
 	float wishAngVel = ch->GetParams().target_rotation - currentRot;
 	
@@ -28,11 +30,12 @@ void AlignSteering::Update(Accelerations &acc, Character * ch, USVec2D target) {
 }
 
 void AlignSteering::DrawDebug() {
+	Character * ch = GetCh();
 	MOAIGfxDevice& gfxDevice = MOAIGfxDevice::Get();
 	gfxDevice.SetPenColor(0.0f, 0.0f, 1.0f, 0.5f);
 
 	//LinearAcc
 	gfxDevice.SetPenColor(0.0f, 1.0f, 0.0f, 0.5f);
-	MOAIDraw::DrawLine(mCh->GetLoc(), mCh->GetLoc() * mCh->GetAngularVelocity());
+	MOAIDraw::DrawLine(ch->GetLoc(), ch->GetLoc() * ch->GetAngularVelocity());
 
 }

@@ -2,14 +2,16 @@
 #include "character.h"
 #include "flee_steering.h"
 
-FleeSteering::FleeSteering() {
+FleeSteering::FleeSteering() {}
+
+FleeSteering::~FleeSteering() {}
+
+void FleeSteering::Init(Character * ch) {
+	Steering::Init(ch);
 }
 
-
-FleeSteering::~FleeSteering() {
-}
-
-void FleeSteering::Update(Accelerations & acc, Character * ch, USVec2D target) {
+void FleeSteering::Update(Accelerations & acc, USVec2D target) {
+	Character * ch = GetCh();
 	USVec2D chLoc = ch->GetLoc();
 	USVec2D desiredVelocity = (target - chLoc) * -1;
 	USVec2D wishAcc = desiredVelocity - ch->GetLinearVelocity();
@@ -19,5 +21,5 @@ void FleeSteering::Update(Accelerations & acc, Character * ch, USVec2D target) {
 }
 
 void FleeSteering::DrawDebug() {
-
+	Character * ch = GetCh();
 }

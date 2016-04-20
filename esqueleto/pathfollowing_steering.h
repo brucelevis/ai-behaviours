@@ -8,8 +8,10 @@ class PathFollowingSteering: public Steering {
 public:
 	PathFollowingSteering();
 	virtual ~PathFollowingSteering();
+	
+	virtual void Init(Character * ch);
 
-	virtual void Update(Accelerations &acc, Character * ch, USVec2D target);
+	virtual void Update(Accelerations &acc, USVec2D target);
 	
 	virtual void DrawDebug();
 protected:

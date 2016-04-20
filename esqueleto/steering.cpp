@@ -5,10 +5,12 @@
 Steering::Steering() {
 }
 
-
 Steering::~Steering() {
 }
 
-void Steering::Update(Accelerations &acc, Character * ch, USVec2D target) {
+void Steering::Init(Character * ch) {
+	mCh = ch;
+}
 
+void Steering::Update(Accelerations &acc, USVec2D target) {
 }

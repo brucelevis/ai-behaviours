@@ -6,15 +6,18 @@ SeekSteering::SeekSteering() {
 
 }
 
+void SeekSteering::Init(Character * ch) {
+	Steering::Init(ch);
+}
 
 SeekSteering::~SeekSteering() {
 
 }
 
-void SeekSteering::Update(Accelerations &acc, Character * ch, USVec2D target) {
-	USVec2D chLoc = ch->GetLoc();
+void SeekSteering::Update(Accelerations &acc, USVec2D target) {
+	USVec2D chLoc = GetCh()->GetLoc();
 	USVec2D desiredVelocity = target - chLoc;
-	USVec2D wishAcc = desiredVelocity - ch->GetLinearVelocity();
+	USVec2D wishAcc = desiredVelocity - GetCh()->GetLinearVelocity();
 	float accFactor = wishAcc.Norm();
 	acc.linearAcc = wishAcc * accFactor;
 	mLastLinearAcc = acc.linearAcc;
@@ -26,13 +29,13 @@ void SeekSteering::DrawDebug() {
 
 	//LinearAcc
 	gfxDevice.SetPenColor(0.0f, 1.0f, 0.0f, 0.5f);
-	MOAIDraw::DrawLine(static_cast<USVec2D>(mCh->GetLoc()),
-		static_cast<USVec2D>(mCh->GetLoc()) + mLastLinearAcc);
+	MOAIDraw::DrawLine(static_cast<USVec2D>(GetCh()->GetLoc()),
+		static_cast<USVec2D>(GetCh()->GetLoc()) + mLastLinearAcc);
 
 	gfxDevice.SetPenColor(1.0f, 1.0f, 1.0f, 0.5f);
 
-	MOAIDraw::DrawPoint(mCh->GetParams().target_position);
-	MOAIDraw::DrawEllipseOutline(mCh->GetParams().target_position.mX,
-		mCh->GetParams().target_position.mY, mCh->GetParams().arrive_radius,
-		mCh->GetParams().arrive_radius, 64);
+	MOAIDraw::DrawPoint(GetCh()->GetParams().target_position);
+	MOAIDraw::DrawEllipseOutline(GetCh()->GetParams().target_position.mX,
+		GetCh()->GetParams().target_position.mY, GetCh()->GetParams().arrive_radius,
+		GetCh()->GetParams().arrive_radius, 64);
 }

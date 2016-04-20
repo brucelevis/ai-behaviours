@@ -88,6 +88,16 @@ bool ReadParams(const char* filename, Params& params) {
 		paramElem->Attribute("value", &params.look_ahead);
 	}
 
+	paramElem = hParams.FirstChildElement("char_radius").Element();
+	if (paramElem) {
+		paramElem->Attribute("value", &params.char_radius);
+	}
+
+	paramElem = hParams.FirstChildElement("vision_length").Element();
+	if (paramElem) {
+		paramElem->Attribute("value", &params.vision_length);
+	}
+
 	/* POINTS */
 	TiXmlDocument docPath(PATH_FILENAME);
 	if (!docPath.LoadFile()) {

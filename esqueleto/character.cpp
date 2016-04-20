@@ -32,6 +32,10 @@ void Character::OnStart() {
 	mSteerings.push_back(new AlignToMovementSteering());
 	//mSteerings.push_back(new PathFollowingSteering());
 	mSteerings.push_back(new ObstacleAvoidanceSteering());
+	for (std::vector<Steering*>::iterator it = mSteerings.begin(); it != mSteerings.end();
+	++it) {
+		(*it)->Init(this);
+	}
 	mTarget = mParams.target_position;
 	mArriveRadius = mParams.arrive_radius;
 }
@@ -44,7 +48,7 @@ void Character::OnUpdate(float step) {
 	Accelerations acc;
 	for (std::vector<Steering *>::iterator itr = mSteerings.begin(); itr != mSteerings.end();
 	++itr) {
-		(*itr)->Update(acc, this, mTarget);
+		(*itr)->Update(acc, mTarget);
 	}
 
 	mLastLinearAcc = acc.linearAcc;
@@ -82,12 +86,13 @@ void Character::DrawDebug() {
 	}
 
 	//LinearVel
-	/*gfxDevice.SetPenColor(1.0f, 0.0f, 0.0f, 0.5f);
+	gfxDevice.SetPenColor(1.0f, 0.0f, 0.0f, 0.5f);
 	MOAIDraw::DrawLine(static_cast<USVec2D>(GetLoc()),
-		static_cast<USVec2D>(GetLoc()) + mLinearVelocity);*/
+		static_cast<USVec2D>(GetLoc()) + mLinearVelocity);
 
-	/*gfxDevice.SetPenColor(0.0f, 0.0f, 1.0f, 0.5f);
-	MOAIDraw::DrawLine(static_cast<USVec2D>(GetLoc()), mTarget);*/
+	gfxDevice.SetPenColor(0.0f, 0.0f, 1.0f, 0.5f);
+	MOAIDraw::DrawLine(static_cast<USVec2D>(GetLoc()),
+		static_cast<USVec2D>(GetLoc()) + mLastLinearAcc);
 }
 
 // Lua configuration

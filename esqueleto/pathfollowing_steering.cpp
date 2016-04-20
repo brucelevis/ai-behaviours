@@ -12,27 +12,30 @@ PathFollowingSteering::PathFollowingSteering() {
 PathFollowingSteering::~PathFollowingSteering() {
 }
 
-void PathFollowingSteering::Update(Accelerations & acc, Character * ch, USVec2D target) {
-	mCh = ch;
+void PathFollowingSteering::Init(Character * ch) {
+	Steering::Init(ch);
+	mSeekDelegate->Init(ch);
+}
 
+void PathFollowingSteering::Update(Accelerations & acc, USVec2D target) {
 	std::vector<float> distances;
 	USVec2D a, b, v, segment;
 	float segmentSize, projection;
 	//find nearest segment -> number
-	for (uint16_t i = 0; i < ch->GetParams().numSegments; ++i) {
-		a = USMetaVec2D<float>(ch->GetParams().points[i].x, ch->GetParams().points[i].y);
-		b = USMetaVec2D<float>(ch->GetParams().points[i+1].x, ch->GetParams().points[i+1].y);
-		v = ch->GetLoc() - a;
+	for (uint16_t i = 0; i < GetCh()->GetParams().numSegments; ++i) {
+		a = USMetaVec2D<float>(GetCh()->GetParams().points[i].x, GetCh()->GetParams().points[i].y);
+		b = USMetaVec2D<float>(GetCh()->GetParams().points[i+1].x, GetCh()->GetParams().points[i+1].y);
+		v = GetCh()->GetLoc() - a;
 		segment = b - a;
 		segmentSize = segment.Length();
-		projection = v.Dot(segment.NormVector()) + ch->GetParams().look_ahead;
+		projection = v.Dot(segment.NormVector()) + GetCh()->GetParams().look_ahead;
 		float distance;
 		if (projection > segmentSize) {
-			distance = (ch->GetLoc() - b).Length();
+			distance = (GetCh()->GetLoc() - b).Length();
 		} else if (projection < 0) {
-			distance = (ch->GetLoc() - a).Length();
+			distance = (GetCh()->GetLoc() - a).Length();
 		} else {
-			distance = (ch->GetLoc() - (a + (segment.NormVector() * projection))).Length();
+			distance = (GetCh()->GetLoc() - (a + (segment.NormVector() * projection))).Length();
 		}
 		if (distance <= 0.001) {
 			distance = 0.f;
@@ -50,34 +53,34 @@ void PathFollowingSteering::Update(Accelerations & acc, Character * ch, USVec2D 
 	}
 
 	//calc projection in this segment
-	a = USMetaVec2D<float>(ch->GetParams().points[nearestPos].x,
-		ch->GetParams().points[nearestPos].y);
-	b = USMetaVec2D<float>(ch->GetParams().points[nearestPos + 1].x,
-		ch->GetParams().points[nearestPos + 1].y);
-	v = ch->GetLoc() - a;
+	a = USMetaVec2D<float>(GetCh()->GetParams().points[nearestPos].x,
+		GetCh()->GetParams().points[nearestPos].y);
+	b = USMetaVec2D<float>(GetCh()->GetParams().points[nearestPos + 1].x,
+		GetCh()->GetParams().points[nearestPos + 1].y);
+	v = GetCh()->GetLoc() - a;
 	segment = b - a;
 	segmentSize = segment.Length();
-	projection = v.Dot(segment.NormVector()) + ch->GetParams().look_ahead;
+	projection = v.Dot(segment.NormVector()) + GetCh()->GetParams().look_ahead;
 
-	if (mCurrentSegment == mCh->GetParams().points.size() - 2) {
-		a = USMetaVec2D<float>(ch->GetParams().points[ch->GetParams().points.size() - 2].x,
-			ch->GetParams().points[ch->GetParams().points.size() - 2].y);
-		b = USMetaVec2D<float>(ch->GetParams().points[ch->GetParams().points.size() - 1].x,
-			ch->GetParams().points[ch->GetParams().points.size() - 1].y);
-		v = ch->GetLoc() - a;
+	if (mCurrentSegment == GetCh()->GetParams().points.size() - 2) {
+		a = USMetaVec2D<float>(GetCh()->GetParams().points[GetCh()->GetParams().points.size() - 2].x,
+			GetCh()->GetParams().points[GetCh()->GetParams().points.size() - 2].y);
+		b = USMetaVec2D<float>(GetCh()->GetParams().points[GetCh()->GetParams().points.size() - 1].x,
+			GetCh()->GetParams().points[GetCh()->GetParams().points.size() - 1].y);
+		v = GetCh()->GetLoc() - a;
 		segment = b - a;
 		segmentSize = segment.Length();
-		projection = v.Dot(segment.NormVector()) + ch->GetParams().look_ahead;
+		projection = v.Dot(segment.NormVector()) + GetCh()->GetParams().look_ahead;
 	} else if (projection > segmentSize) {
 		//float offset = projection - segmentSize;
-		a = USMetaVec2D<float>(ch->GetParams().points[nearestPos + 1].x,
-			ch->GetParams().points[nearestPos + 1].y);
-		b = USMetaVec2D<float>(ch->GetParams().points[nearestPos + 2].x,
-			ch->GetParams().points[nearestPos + 2].y);
-		v = ch->GetLoc() - a;
+		a = USMetaVec2D<float>(GetCh()->GetParams().points[nearestPos + 1].x,
+			GetCh()->GetParams().points[nearestPos + 1].y);
+		b = USMetaVec2D<float>(GetCh()->GetParams().points[nearestPos + 2].x,
+			GetCh()->GetParams().points[nearestPos + 2].y);
+		v = GetCh()->GetLoc() - a;
 		segment = b - a;
 		segmentSize = segment.Length();
-		projection = v.Dot(segment.NormVector()) + ch->GetParams().look_ahead;
+		projection = v.Dot(segment.NormVector()) + GetCh()->GetParams().look_ahead;
 	}
 
 	USVec2D newTarget;
@@ -91,8 +94,8 @@ void PathFollowingSteering::Update(Accelerations & acc, Character * ch, USVec2D 
 	}
 
 	mTarget = newTarget;
-	ch->GetParams().target_position = newTarget;
-	mSeekDelegate->Update(acc, ch, newTarget);
+	GetCh()->GetParams().target_position = newTarget;
+	mSeekDelegate->Update(acc, newTarget);
 }
 
 void PathFollowingSteering::DrawDebug() {
@@ -100,12 +103,12 @@ void PathFollowingSteering::DrawDebug() {
 	gfxDevice.SetPenColor(1.0f, 0.0f, 0.0f, 0.5f);
 
 	//path
-	for (uint8_t i = 0; i < mCh->GetParams().numSegments; i++) {
+	for (uint8_t i = 0; i < GetCh()->GetParams().numSegments; i++) {
 		MOAIDraw::DrawLine(
-			USVec2D(mCh->GetParams().points[i].x, mCh->GetParams().points[i].y),
-			USVec2D(mCh->GetParams().points[i+1].x, mCh->GetParams().points[i+1].y));
+			USVec2D(GetCh()->GetParams().points[i].x, GetCh()->GetParams().points[i].y),
+			USVec2D(GetCh()->GetParams().points[i+1].x, GetCh()->GetParams().points[i+1].y));
 	}
 
 	gfxDevice.SetPenColor(1.0f, 1.0f, 1.0f, 0.5f);
-	MOAIDraw::DrawLine(static_cast<USVec2D>(mCh->GetLoc()), mTarget);
+	MOAIDraw::DrawLine(static_cast<USVec2D>(GetCh()->GetLoc()), mTarget);
 }

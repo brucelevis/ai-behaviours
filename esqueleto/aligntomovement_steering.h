@@ -10,9 +10,11 @@ public:
 	AlignToMovementSteering();
 	virtual ~AlignToMovementSteering();
 
+	virtual void Init(Character * ch);
+
 	virtual void DrawDebug();
 
-	virtual void Update(Accelerations &acc, Character * ch, USVec2D target);
+	virtual void Update(Accelerations &acc, USVec2D target);
 private:
 	AlignSteering * mAlignSteering;
 };

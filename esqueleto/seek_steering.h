@@ -8,9 +8,11 @@ public:
 	SeekSteering();
 	virtual ~SeekSteering();
 
+	virtual void Init(Character * ch);
+
 	void DrawDebug();
 
-	virtual void Update(Accelerations &acc, Character * ch, USVec2D target);
+	virtual void Update(Accelerations &acc, USVec2D target);
 private:
 	USVec2D mLastLinearAcc;
 };
