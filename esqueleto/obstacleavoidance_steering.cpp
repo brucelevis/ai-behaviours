@@ -1,9 +1,6 @@
 #include "stdafx.h"
 #include "character.h"
 #include "obstacleavoidance_steering.h"
-USVec2D velProj;
-USVec2D vLook;
-USVec2D dist;
 ObstacleAvoidanceSteering::ObstacleAvoidanceSteering() {}
 
 void ObstacleAvoidanceSteering::Init(Character * ch) {
@@ -23,7 +20,6 @@ void ObstacleAvoidanceSteering::Update(Accelerations & acc, USVec2D target) {
 	obIt != ch->GetParams().obstacles.end(); ++obIt) {
 		vObsCenter = USVec2D(obIt->x, obIt->y) - ch->GetLoc();
 		obsDistance = vObsCenter.Length();
-		vLook = ch->GetLinearVelocity().NormVector() * ch->GetParams().vision_length;
 		projDistance = (mVision - vObsCenter).Length();
 		if (projDistance < obIt->r + ch->GetParams().char_radius) {
 			std::cout << "COLLISION" << std::endl;
@@ -54,6 +50,4 @@ void ObstacleAvoidanceSteering::DrawDebug() {
 	//line of sight
 	gfxDevice.SetPenColor(0.0f, 1.0f, 1.0f, 0.5f);
 	MOAIDraw::DrawLine(ch->GetLoc(), ch->GetLoc() + mVision);
-	gfxDevice.SetPenColor(0.0f, 0.0f, 1.0f, 0.5f);
-	MOAIDraw::DrawLine(ch->GetLoc(), ch->GetLoc() + velProj);
 }

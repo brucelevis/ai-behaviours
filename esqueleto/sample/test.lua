@@ -38,8 +38,8 @@ mouseX = 0
 mouseY = 0
 
 function onClick(down)
-  --entity:setLoc(mouseX, mouseY)
-  entity:setTarget(mouseX, mouseY)
+  entity:setLoc(mouseX, mouseY)
+  --entity:setTarget(mouseX, mouseY)
   --entity:setRot(-135)
   --entity:setLinearVel(0, 0)
   --entity:setAngularVel(0)

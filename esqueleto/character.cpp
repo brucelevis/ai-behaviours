@@ -9,6 +9,7 @@
 #include "character.h"
 #include "pathfollowing_steering.h"
 #include "obstacleavoidance_steering.h"
+#include "obstaclepath_steering.h"
 
 #include <params.h>
 
@@ -31,7 +32,8 @@ void Character::OnStart() {
 	//mSteerings.push_back(new AlignSteering());
 	mSteerings.push_back(new AlignToMovementSteering());
 	//mSteerings.push_back(new PathFollowingSteering());
-	mSteerings.push_back(new ObstacleAvoidanceSteering());
+	//mSteerings.push_back(new ObstacleAvoidanceSteering());
+	mSteerings.push_back(new ObstaclePathSteering());
 	for (std::vector<Steering*>::iterator it = mSteerings.begin(); it != mSteerings.end();
 	++it) {
 		(*it)->Init(this);

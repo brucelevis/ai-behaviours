@@ -134,6 +134,7 @@
     <ClCompile Include="host\GlutHostMain.cpp" />
     <ClCompile Include="host\ParticlePresets.cpp" />
     <ClCompile Include="obstacleavoidance_steering.cpp" />
+    <ClCompile Include="obstaclepath_steering.cpp" />
     <ClCompile Include="params.cpp" />
     <ClCompile Include="pathfollowing_steering.cpp" />
     <ClCompile Include="seek_steering.cpp" />
@@ -153,6 +154,7 @@
     <ClInclude Include="host\GlutHost.h" />
     <ClInclude Include="host\ParticlePresets.h" />
     <ClInclude Include="obstacleavoidance_steering.h" />
+    <ClInclude Include="obstaclepath_steering.h" />
     <ClInclude Include="params.h" />
     <ClInclude Include="pathfollowing_steering.h" />
     <ClInclude Include="seek_steering.h" />
